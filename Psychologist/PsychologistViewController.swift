@@ -42,7 +42,7 @@ class PsychologistViewController: UIViewController {
         }
     }
     
-    var instanceCount = { globalPsychologistViewController++ }()
+    var instanceCount: ()  = globalPsychologistViewController += 1
     
     func logVCL(msg: String) {
         print(logVCLprefix + "Psychologist \(instanceCount) " + msg)

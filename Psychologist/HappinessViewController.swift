@@ -12,7 +12,7 @@ var globalHappinessInstanceCount = 0
 
 class HappinessViewController: UIViewController, FaceViewDataSource {
     
-    var instanceCount = { globalHappinessInstanceCount++ }()
+    var instanceCount: () = globalPsychologistViewController += 1
 
     private struct Constants {
         static let HappinessGestureScale: CGFloat = 4
