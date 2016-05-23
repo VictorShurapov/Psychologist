@@ -20,7 +20,8 @@ class DiagnosedHappinessViewController: HappinessViewController, UIPopoverPresen
     var diagnosticHistory: [Int] {
         get { return defaults.objectForKey(History.DefaultsKey) as? [Int] ?? []}
         set { defaults.setObject(newValue, forKey: History.DefaultsKey)
-        print(diagnosticHistory)}
+            print("diagnosticHistory \(diagnosticHistory)")
+        }
     }
     
     private struct History {
@@ -47,5 +48,5 @@ class DiagnosedHappinessViewController: HappinessViewController, UIPopoverPresen
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
     }
- 
+    
 }

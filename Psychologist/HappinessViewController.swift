@@ -11,8 +11,6 @@ import UIKit
 var globalHappinessInstanceCount = 0
 
 class HappinessViewController: UIViewController, FaceViewDataSource {
-    
-    var instanceCount: () = globalPsychologistViewController += 1
 
     private struct Constants {
         static let HappinessGestureScale: CGFloat = 4
@@ -41,11 +39,12 @@ class HappinessViewController: UIViewController, FaceViewDataSource {
             faceView.addGestureRecognizer(UIPinchGestureRecognizer(target: faceView, action: #selector(faceView.scale(_:))))
         }
     }
-    
+
+   
     var happiness: Int = 88 { // 0 = very sad, 100 = ecstatic
         didSet {
             happiness = min(max(happiness, 0), 100)
-            print("happiness = \(happiness)")
+            logVCL("prepared by prepareForSegue (happiness = \(happiness))")
             updateUI()
         }
     }
@@ -61,6 +60,12 @@ class HappinessViewController: UIViewController, FaceViewDataSource {
         return Double(happiness - 50) / 50
     }
     
+    var instanceCount: Int = {
+        defer {
+            globalHappinessInstanceCount += 1
+        }
+        return globalHappinessInstanceCount
+    }()
     func logVCL(msg: String) {
         print(logVCLprefix + "Happiness \(instanceCount) " + msg)
     }

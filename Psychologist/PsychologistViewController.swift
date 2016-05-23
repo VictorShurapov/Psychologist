@@ -8,7 +8,7 @@
 
 import UIKit
 
-var globalPsychologistViewController = 0
+var globalPsychologistInstanceCount = 0
 
 class PsychologistViewController: UIViewController {
     
@@ -19,11 +19,12 @@ class PsychologistViewController: UIViewController {
         performSegueWithIdentifier("nothing", sender: nil)
         
     }
-    
     // prepare for segues
     // the only segue we currently have is to the HappinessViewController
     // to show the Psychologist's diagnosis
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let mySizeClass: UIUserInterfaceSizeClass = self.traitCollection.horizontalSizeClass
+        print(mySizeClass)
         var destination: UIViewController? = segue.destinationViewController as UIViewController
         // this next if-statement makes sure the segue prepares properly even
         //   if the MVC we're seguing to is wrapped in a UINavigationController
@@ -42,10 +43,16 @@ class PsychologistViewController: UIViewController {
         }
     }
     
-    var instanceCount: ()  = globalPsychologistViewController += 1
+    
+    var instanceCount: Int = {
+        defer {
+            globalPsychologistInstanceCount += 1
+        }
+        return globalPsychologistInstanceCount
+    }()
     
     func logVCL(msg: String) {
-        print(logVCLprefix + "Psychologist \(instanceCount) " + msg)
+         print(logVCLprefix + "Psychologist \(instanceCount) " + msg)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -53,10 +60,10 @@ class PsychologistViewController: UIViewController {
         logVCL("init(coder)")
     }
     
-//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-//        logVCL("init(nibName, bundle)")
-//    }
+    //    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    //        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    //        logVCL("init(nibName, bundle)")
+    //    }
     
     deinit {
         logVCL("deinit")
