@@ -9,7 +9,7 @@
 import UIKit
 
 var accumulatingLogVCLprefix = ""
-var lastLogVCLPrefixRequest: NSDate?
+var lastLogVCLPrefixRequest: Date?
 
 extension UIViewController {
     var logVCLprefix: String {
@@ -18,7 +18,7 @@ extension UIViewController {
                 accumulatingLogVCLprefix += "__"
             }
         }
-        lastLogVCLPrefixRequest = NSDate(timeIntervalSinceNow:  0)
+        lastLogVCLPrefixRequest = Date(timeIntervalSinceNow:  0)
         return accumulatingLogVCLprefix
     }
 }

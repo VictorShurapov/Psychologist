@@ -14,25 +14,25 @@ class DiagnosedHappinessViewController: HappinessViewController, UIPopoverPresen
             diagnosticHistory += [happiness]
         }
     }
-    private let defaults = NSUserDefaults.standardUserDefaults()
+    fileprivate let defaults = UserDefaults.standard
     
     
     var diagnosticHistory: [Int] {
-        get { return defaults.objectForKey(History.DefaultsKey) as? [Int] ?? []}
-        set { defaults.setObject(newValue, forKey: History.DefaultsKey)
+        get { return defaults.object(forKey: History.DefaultsKey) as? [Int] ?? []}
+        set { defaults.set(newValue, forKey: History.DefaultsKey)
             print("diagnosticHistory \(diagnosticHistory)")
         }
     }
     
-    private struct History {
+    fileprivate struct History {
         static let SegueIdentifier = "Show Diagnostic History"
         static let DefaultsKey = "DiagnosedHappinessViewController.diagnosticHistory"
     }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case History.SegueIdentifier:
-                if let tvc = segue.destinationViewController as? TextViewController {
+                if let tvc = segue.destination as? TextViewController {
                     if let ppc = tvc.popoverPresentationController {
                         ppc.delegate = self
                     }
@@ -45,8 +45,8 @@ class DiagnosedHappinessViewController: HappinessViewController, UIPopoverPresen
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.None
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
     
 }

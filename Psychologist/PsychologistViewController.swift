@@ -15,17 +15,17 @@ class PsychologistViewController: UIViewController {
     // here we are performing a segue manually from code
     // this is only useful if you want to do some decision-making
     //   around the segue process (this example doesn't do that)
-    @IBAction func nothing(sender: UIButton) {
-        performSegueWithIdentifier("nothing", sender: nil)
+    @IBAction func nothing(_ sender: UIButton) {
+        performSegue(withIdentifier: "nothing", sender: nil)
         
     }
     // prepare for segues
     // the only segue we currently have is to the HappinessViewController
     // to show the Psychologist's diagnosis
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let mySizeClass: UIUserInterfaceSizeClass = self.traitCollection.horizontalSizeClass
         print(mySizeClass)
-        var destination: UIViewController? = segue.destinationViewController as UIViewController
+        var destination: UIViewController? = segue.destination as UIViewController
         // this next if-statement makes sure the segue prepares properly even
         //   if the MVC we're seguing to is wrapped in a UINavigationController
         if let navCon = destination as? UINavigationController {
@@ -51,7 +51,7 @@ class PsychologistViewController: UIViewController {
         return globalPsychologistInstanceCount
     }()
     
-    func logVCL(msg: String) {
+    func logVCL(_ msg: String) {
          print(logVCLprefix + "Psychologist \(instanceCount) " + msg)
     }
     
@@ -78,22 +78,22 @@ class PsychologistViewController: UIViewController {
         logVCL("viewDidLoad()")
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         logVCL("viewWillAppear(animated = \(animated))")
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         logVCL("viewDidAppear(animated = \(animated))")
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         logVCL("viewWillDisappear(animated = \(animated))")
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         logVCL("viewDidDisappear(animated = \(animated))")
     }
@@ -108,10 +108,10 @@ class PsychologistViewController: UIViewController {
         logVCL("viewDidLayoutSubviews() bounds.size = \(view.bounds.size)")
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         logVCL("viewWillTransitionToSize")
-        coordinator.animateAlongsideTransition( {(context: UIViewControllerTransitionCoordinatorContext!) -> Void in self.logVCL("animateAlongsideTransition")}, completion: { context -> Void in self.logVCL("doneAnimatingAlogsideTransition")})
+        coordinator.animate( alongsideTransition: {(context: UIViewControllerTransitionCoordinatorContext!) -> Void in self.logVCL("animateAlongsideTransition")}, completion: { context -> Void in self.logVCL("doneAnimatingAlogsideTransition")})
     }
 }
 
